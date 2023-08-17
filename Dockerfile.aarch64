@@ -40,7 +40,9 @@ ENV \
 
 RUN \
   echo "**** install build packages ****" && \
-  apt-get update && \ 
+  echo 'APT::Install-Recommends "0";' > /etc/apt/apt.conf.d/02recommends && \
+  echo 'APT::Install-Suggests "0";' >> /etc/apt/apt.conf.d/02recommends && \
+  apt-get update && \
   apt-get install -y \
     autoconf \
     automake \
@@ -65,6 +67,7 @@ RUN \
     libxml2-dev \
     make \
     nasm \
+    patch \
     perl \
     pkg-config \
     python3-venv \
@@ -470,6 +473,8 @@ ARG DEBIAN_FRONTEND="noninteractive"
 
 RUN \
   echo "**** install runtime ****" && \
+  echo 'APT::Install-Recommends "0";' > /etc/apt/apt.conf.d/02recommends && \
+  echo 'APT::Install-Suggests "0";' >> /etc/apt/apt.conf.d/02recommends && \
   apt-get update && \
   apt-get install -y \
     libexpat1 \

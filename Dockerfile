@@ -46,6 +46,8 @@ ENV \
 
 RUN \
   echo "**** install build packages ****" && \
+  echo 'APT::Install-Recommends "0";' > /etc/apt/apt.conf.d/02recommends && \
+  echo 'APT::Install-Suggests "0";' >> /etc/apt/apt.conf.d/02recommends && \
   apt-get update && \ 
   apt-get install -y \
     autoconf \
@@ -79,6 +81,7 @@ RUN \
     nasm \
     ninja-build \
     ocl-icd-opencl-dev \
+    patch \
     perl \
     pkg-config \
     python3-venv \
@@ -698,6 +701,8 @@ ENV \
 
 RUN \
   echo "**** install runtime ****" && \
+  echo 'APT::Install-Recommends "0";' > /etc/apt/apt.conf.d/02recommends && \
+  echo 'APT::Install-Suggests "0";' >> /etc/apt/apt.conf.d/02recommends && \
     apt-get update && \
     apt-get install -y \
     libexpat1 \
